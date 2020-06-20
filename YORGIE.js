@@ -85,10 +85,6 @@ var selectNumber = null;
                 showDialog3();
                 return;
             }
-            if(value.value == "4") {
-
-                return;
-            }
             showError("The value you entered is incorrect!");
         });
 
