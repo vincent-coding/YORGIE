@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         YORGIE!
-// @namespace    http://tampermonkey.net/
+// @updateURL    https://raw.githubusercontent.com/vincent-coding/YORGIE/master/YORGIE.user.js
+// @downloadURL  https://raw.githubusercontent.com/vincent-coding/YORGIE/master/YORGIE.user.js
 // @version      1.0
 // @description  The best cheating client for yorg.io!
 // @author       VCoding
