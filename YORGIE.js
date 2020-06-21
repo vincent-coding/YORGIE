@@ -1,5 +1,6 @@
 // ==UserScript==
 // @name         YORGIE!
+// @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  The best cheating client for yorg.io!
 // @author       VCoding
@@ -9,6 +10,7 @@
 
 const version = "1.0";
 var selectNumber = null;
+const skills = ["base", "cannonDamage_0", "cannonDamage_1", "cannonDamage_2", "cannonDamage_3", "cannonDamage_4", "cannonDamage_5", "cannonDamage_6", "cannonDamage_7", "cannonDamage_8", "cannon_feature_double_dmg", "damage_0", "damage_1", "damage_2", "damage_3", "damage_4", "damage_circle_l", "damage_circle_tl", "damage_circle_bl", "damage_circle_tr", "damage_circle_br", "damage_circle_r", "damage_circle_center", "crit_0", "crit_1", "crit_2", "crit_3_t", "crit_3_b", "crit_3_r", "crit_n_damage", "crit_4", "crit_5", "crit_n_damage_1", "double_crit_feature", "crit_initial", "factorySpeed_0", "factorySpeed_1", "factorySpeed_2", "factorySpeed_3_u", "factorySpeed_3_b", "factorySpeed_3_rl", "factorySpeed_3_ru", "factorySpeed_3_t", "factorySpeed_4", "factoryFeatureSpeed", "minersSpeed_0", "transporterFeatureInvisible", "transporterSpeed_0", "transporterSpeed_1", "transporterSpeed_2", "transporterSpeed_3_l", "transporterSpeed_3_lm", "transporterSpeed_3_r", "transporterSpeed_3_rm", "transporterSpeed_3_t", "transporterSpeed_3_c", "transporterFeatureGlobal", "minersSpeed_1", "minersSpeed_2", "minersSpeed_3", "minersSpeed_4_br", "minersSpeed_4_tr", "minersSpeed_4_bl", "minersSpeed_4_tl", "minersSpeed_4_top", "minersSpeed_4_inner", "minersSpeed_5", "minersSpeed_6", "minersRadius_feature1", "minersSpeed_7", "minersSpeed_8", "minersRadius_feature2", "buildingStorage_0", "buildingStorage_1", "buildingStorage_2", "buildingStorage_3", "buildingStorage_4", "buildingStorageDouble", "arrowDamage_0", "arrowDamage_1", "arrowFireRate_0", "arrowFireRate_1", "arrowRadius_0", "arrowDamage_2", "arrowRadius_1", "arrowDamage_3", "arrowRadius_2", "arrowRadius_3", "arrowFeatureDoubleDamage", "lightningDamage_0", "lightningRadius_0", "lightningDamage_1", "lightningRadius_1", "lightningDamage_2", "lightningDamageRadius_0", "lightningDamage_3", "lightningRadius_2", "lightningRadius_3", "lightningFeatureCrit", "health_0", "health_1", "health_2", "health_3", "health_4", "health_circle_br", "health_circle_bl", "health_circle_tr", "health_circle_tl", "health_circle_l", "health_circle_center", "health_5", "health_6", "health_regen_feature", "wallHealth_0", "wallHealth_1", "wallHealth_2", "wallHealth_3", "wallHealth_4", "wallHealth_5", "wallHealth_6", "wallHealthSub_1", "wallHealthSub_2", "wallHealth_7", "wallHealthFeatureMiss"];
 
 (function() {
     /* INJECTION */
@@ -61,7 +63,7 @@ var selectNumber = null;
     function openMenu() {
         swal.fire({
             titleText: "YORGIE!",
-            html: `Which cheat code would you like to access?<br><br>1 - Change the number of gems<br>2 - Change the number of skill points<br>3 - Change the time for the level`,
+            html: `Which cheat code would you like to access?<br><br>1 - Change the number of gems<br>2 - Change the number of skill points<br>3 - Change the time for the level<br>4 - Unlock all skills`,
             input: 'number',
             icon: "question",
             showCloseButton: true,
@@ -83,6 +85,10 @@ var selectNumber = null;
             }
             if(value.value == "3") {
                 showDialog3();
+                return;
+            }
+            if(value.value == "4") {
+                showDialog4();
                 return;
             }
             showError("The value you entered is incorrect!");
@@ -149,6 +155,28 @@ var selectNumber = null;
                 showCancelButton: false,
                 showConfirmButton: true,
                 confirmButtonText: 'Add',
+            });
+        }
+
+        function showDialog4() {
+            swal.fire({
+                titleText: "YORGIE!",
+                html: `Are you sure you want to unlock all the skill?<br>(This action is irreversible!)`,
+                icon: "question",
+                showCloseButton: true,
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes',
+            }).then((value) => {
+                if(value.isDismissed == true) { return; }
+                try {
+                    skills.forEach(element => window.mouseTracker.onMouseMove._bindings[0].context.root.gameSystems.root.stats.unlockSkill(element))
+                    showSuccess("All the skills have been unlocked!");
+                } catch(e) {
+                    showSuccess("A mistake has been made!");
+                    console.log(e)
+                }
             });
         }
     };
