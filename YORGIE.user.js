@@ -203,7 +203,7 @@ const skills = ["base", "cannonDamage_0", "cannonDamage_1", "cannonDamage_2", "c
         If you like the software you can make me a donation :)
     </span>
     <br>
-    <a href="#" target="_BLANK">
+    <a href="https://www.buymeacoffee.com/VCoding/" target="_BLANK">
         <span>Buy Me A Coffee<span>
     </a>
 </span>
